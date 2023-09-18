@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="Django Lib">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/new_website/Lib/site-packages" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

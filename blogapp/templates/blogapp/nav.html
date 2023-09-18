@@ -1,0 +1,26 @@
+<div class="top-bar">
+  <div class="top-bar-left">
+    <ul class="menu" style="background: #FFFFFF;">
+      <a href="/"><li class="menu-text">Blog App</li></a>
+    </ul>
+  </div>
+  <form class="search-bar" method="POST" action="{% url 'search-user'%}">
+    <ul class="menu">
+      <li><input type="search" placeholder="Search" name="q"></li>
+      <li><button type="submit" class="hollow button" id="search-button"><i class="fi-magnifying-glass"></i></button></li>
+    </ul>
+  </form>
+  <div class="top-bar-right">
+    <ul class="menu" style="background: #FFFFFF;">
+      {% if user.is_authenticated %}
+        <li><a href='/'><i class="fi-home"></i></a></li>
+          <i class="fa-solid fa-house-user"></i>
+        <li><a href="/user-home">Profile</a></li>
+        <li><a href="../signout"> Logout </a></li>
+      {% else %}
+        <li><a href="/signin">Login</a></li>
+        <li><a href="/register">Sign up</a></li>
+      {% endif %}
+    </ul>
+  </div>
+</div>

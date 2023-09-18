@@ -1,0 +1,99 @@
+<html>
+    <head>
+        {% load static %}
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title> Blog App</title>
+
+    <link rel="shortcut icon" href="{% static 'assets/images/fav.jpg' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/fontawsom-all.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/css/style.css' %}" />
+
+    <style>
+        .round{
+            height: 150px;
+            width: 160px;
+        }
+        .right-box{
+            display: flex;
+            margin-left: 70%;
+        }
+        .site-title {
+            position: absolute;
+            color:#8e8e8e !important;
+            margin-left: 20%;
+        }
+    </style>
+</head>
+    </head>
+   <body>
+
+   <nav class="navbar navbar-expand-sm bg-dark navbar-dark " style="background-color: #FFFFFF !important;">
+  <!-- Brand -->
+  <a class="navbar-brand site-title" href="/">Blog App</a>
+
+  <div class="right-box">
+  <form class="form-inline" method="POST" action="{% url 'search-user'%}">
+    <input class="form-control mr-sm-2" type="text" placeholder="Search" style="margin-top:20px">
+  </form>
+  <!-- Links -->
+  <ul class="navbar-nav">
+    <li class="nav-item" style="margin-top: 1rem">
+      <a class="nav-link" href="/user-home" style="color:#8e8e8e">Profile</a>
+    </li>
+    <li class="nav-item" style="margin-top: 1rem">
+      <a class="nav-link" href="../signout" style="color:#8e8e8e">Logout</a>
+    </li>
+  </ul>
+  </div>
+</nav>
+
+    {% if user.is_authenticated %}
+   <div class="container rounded bg-white mt-5 mb-5">
+    <div class="row">
+    {% if user_profile.profileImage %}
+        <div class="col-md-5 border-right">
+            <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle round mt-5" width="150px" src="{{ img_url }}"><span class="font-weight-bold"><b>{{ user }}</b></span></div>
+        </div>
+    {% endif %}
+        <div class="col-md-7 border-right">
+            <div class="p-3 py-5">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h4 class="text-right">Profile Settings</h4>
+                </div>
+
+        <form action="/user-profile/" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+          {% for field in user_form %}
+
+            <div class="col-md-12">
+              <label class="labels" style="margin-left: -12px">{{ field.label }}</label>
+            </div>
+            <div class="small-6 cell">
+              {{ field }}
+            </div>
+          {% endfor %}
+          {% for field in profile_form %}
+            <div class="col-md-12">
+              <label class="labels" style="margin-left: -12px">{{ field.label }}</label>
+            </div>
+            <div class="small-6 cell">
+              {{ field }}
+            </div>
+          {% endfor %}
+        <br/>
+        <button type="submit" class="btn btn-primary">Update</button>
+      </form>
+
+    </div>
+
+</div>
+
+    {% else %}
+        <h5>Welcome to Blog App</h5>
+     {%  endif %}
+    </div>
+   </body>
+</html>
