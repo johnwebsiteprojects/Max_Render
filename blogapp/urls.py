@@ -18,6 +18,7 @@ urlpatterns = [
     path('api/user/<str:username>/', api.UserList.as_view(), name='user-list'),
     path('api/posts/<int:pk>/', api.PostsList.as_view(), name='post'),
     path('api/post/', api.NewPostList.as_view(), name='new-post'),
+    path('like/<int:post_id>/', views.like, name="likes"), 
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

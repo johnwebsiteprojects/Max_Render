@@ -19,8 +19,15 @@ class Post(models.Model):
     user = models.ForeignKey(User, on_delete=models.DO_NOTHING, related_name='posts')
     postDate = models.DateField(null=True)
     text = models.CharField(max_length=500)
-    likes = models.IntegerField(null=True)
+    
     media = models.ImageField(upload_to='images_post')
+    likers = models.ManyToManyField(User, default=None, blank=True, related_name='post_likes')
+    # likes = models.ManyToManyField('app_mail.User', default=None, blank=True, related_name='post_likes')
+    likes = models.IntegerField(null=True)
+    @property
+    def num_likes(self):
+        return self.likers.all().count()
+
 
 
 class Follower(models.Model):

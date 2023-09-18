@@ -1,88 +1,89 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-
-{% load static %}
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  {% load static %}
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <title> Blog App</title>
 
-    <link rel="shortcut icon" href="{% static 'assets/images/fav.jpg' %}">
-    <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}">
-    <link rel="stylesheet" href="{% static 'assets/css/fontawsom-all.min.css' %}">
+    <link rel="shortcut icon" href="{% static 'assets/images/fav.jpg' %}" />
+    <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'assets/css/fontawsom-all.min.css' %}" />
     <link rel="stylesheet" type="text/css" href="{% static 'assets/css/style.css' %}" />
     <style>
-        .right-box{
-            display: flex;
-            margin-left: 70%;
-        }
-        .site-title {
-            position: absolute;
-            color:#8e8e8e !important;
-            margin-left: 20%;
-        }
+      .right-box {
+        display: flex;
+        margin-left: 70%;
+      }
+      .site-title {
+        position: absolute;
+        color: #8e8e8e !important;
+        margin-left: 20%;
+      }
     </style>
-</head>
+  </head>
 
-<body>
-{% include "./header.html" %}
-    <nav class="navbar navbar-expand-sm bg-dark navbar-dark " style="background-color: #FFFFFF !important;">
-  <!-- Brand -->
-  <a class="navbar-brand site-title" href="/">Blog App</a>
+  <body>
+    {% include "./header.html" %}
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark" style="background-color: #ffffff !important">
+      <!-- Brand -->
+      <a class="navbar-brand site-title" href="/">Blog App</a>
 
-  <div class="right-box">
-  <form class="form-inline" method="POST" action="{% url 'search-user'%}">
-    <input class="form-control mr-sm-2" type="text" placeholder="Search" style="margin-top:20px">
-  </form>
-  <!-- Links -->
-  <ul class="navbar-nav">
-    <li class="nav-item" style="margin-top: 1rem">
-      <a class="nav-link" href="/user-home" style="color:#8e8e8e">Profile</a>
-    </li>
-      {% if user.is_authenticated %}
-    <li class="nav-item" style="margin-top: 1rem">
-      <a class="nav-link" href="../signout" style="color:#8e8e8e">Logout</a>
-    </li>
-      {% else %}
-    <li class="nav-item" style="margin-top: 1rem">
-      <a class="nav-link" href="../signin" style="color:#8e8e8e">Login</a>
-    </li>
+      <div class="right-box">
+        <form class="form-inline" method="POST" action="{% url 'search-user'%}">
+          <input class="form-control mr-sm-2" type="text" placeholder="Search" style="margin-top: 20px" />
+        </form>
+        <!-- Links -->
+        <ul class="navbar-nav">
+          <li class="nav-item" style="margin-top: 1rem">
+            <a class="nav-link" href="/user-home" style="color: #8e8e8e">Profile</a>
+          </li>
+          {% if user.is_authenticated %}
+          <li class="nav-item" style="margin-top: 1rem">
+            <a class="nav-link" href="../signout" style="color: #8e8e8e">Logout</a>
+          </li>
+          {% else %}
+          <li class="nav-item" style="margin-top: 1rem">
+            <a class="nav-link" href="../signin" style="color: #8e8e8e">Login</a>
+          </li>
 
-      {% endif %}
-  </ul>
-  </div>
-</nav>
+          {% endif %}
+        </ul>
+      </div>
+    </nav>
 
     <div class="container-fluid overcover">
-        <div class="container profile-box">
-            <div class="row">
-            <div class="grid-containor">
-                <div class="grid-x grid-margin-x">
-                  <div class="large-12 cell">
-                    {% for post in posts %}
-                        <div class="card" style="margin-bottom: 2rem">
-                          {% if post.media %}
-                              <img class="post-img" src="{{ post.media.url }}" >
-                          {% endif %}
-                          <div class="card-section">
-                              <p> user : <a href="/{{ post.user }}">{{ post.user }}</a> </p>
-                              <p>{{ post.text }} ({{ post.postDate }})</p>
-                              <p><i class="fi-heart"></i>1M likes</p>
-                          </div>
-                        </div>
-                    {% endfor %}
+      <div class="container profile-box">
+        <div class="row">
+          <div class="grid-containor">
+            <div class="grid-x grid-margin-x">
+              <div class="large-12 cell">
+                {% for post in posts %}
+                <div class="card" style="margin-bottom: 2rem">
+                  {% if post.media %}
+                  <img class="post-img" src="{{ post.media.url }}" />
+                  {% endif %}
+                  <div class="card-section">
+                    <p> user : <a href="/{{ post.user }}">{{ post.user }}</a> </p>
+                    <p>{{ post.text }} ({{ post.postDate }})</p>
+                    <p
+                      ><button class="ul-{{post.postId}}" id="{{post.postId}}" onclick="UnLike_Like(id)"><i class="fi-heart"></i></button> <a class="lc-{{post.postId}}"> {{post.num_likes}}</a>
+                    </p>
                   </div>
                 </div>
+                {% endfor %}
+              </div>
             </div>
-        {% include "./footer.html" %}
+          </div>
+          {% include "./footer.html" %}
         </div>
+      </div>
     </div>
-    </div>
-</body>
+  </body>
 
-<script src="{% static 'assets/js/jquery-3.2.1.min.js' %}"></script>
-<script src="{% static 'assets/js/popper.min.js' %}"></script>
-<script src="{% static 'assets/js/bootstrap.min.js' %}"></script>
-<script src="{% static 'assets/js/script.js' %}"></script>
-
+  <script src="{% static 'assets/js/jquery-3.2.1.min.js' %}"></script>
+  <script src="{% static 'assets/js/popper.min.js' %}"></script>
+  <script src="{% static 'assets/js/bootstrap.min.js' %}"></script>
+  <script src="{% static 'assets/js/script.js' %}"></script>
+  <script src="{% static 'js/like_unlike.js' %}"></script>
 </html>

@@ -247,3 +247,26 @@ def chat_room(request, room_name):
         following_list.append(following)
     username = str(request.user)
     return render(request, "blogapp/inbox.html", {'room_name': room_name, "username": username, 'user_profile': user_profile, 'img_url': image_url, 'following_list': following_list})
+#
+
+####################
+from django.views.decorators.csrf import csrf_exempt
+from django.http import JsonResponse
+@csrf_exempt
+def like(request, post_id):
+    if not request.user.is_authenticated:
+        return JsonResponse('Please Log In ..!', safe=False)
+
+    if request.method == 'POST':
+        user = request.user
+        like = Post.objects.get(postId=post_id)
+        if user in like.likers.all():
+            like.likers.remove(user)
+            return JsonResponse('Unliked', safe=False)
+        else:
+            like.likers.add(user)
+            return JsonResponse('Liked', safe=False)
+
+        
+   
+##
