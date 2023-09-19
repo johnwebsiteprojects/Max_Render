@@ -57,3 +57,4 @@ class NewPostForm(forms.Form):
         media = self.cleaned_data['media']
         post = Post(user=user, postDate=time, text=text,likes=0, media=media,)
         post.save()
+ 

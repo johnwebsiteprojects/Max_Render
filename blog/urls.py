@@ -31,5 +31,7 @@ urlpatterns = [
         version='1.0'
     ), name='openapi-schema'),
     path('admin/', admin.site.urls),
+    
     path('', include('blogapp.urls')),
+    path('chat/', include('chat.urls', namespace='chat'))
 ]

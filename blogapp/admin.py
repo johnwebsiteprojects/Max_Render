@@ -17,3 +17,4 @@ class FollowerAdmin(admin.ModelAdmin):
 admin.site.register(AppUser, AppUserAdmin)
 admin.site.register(Post, PostAdmin)
 admin.site.register(Follower, FollowerAdmin)
+admin.site.register( ChatUserModel)

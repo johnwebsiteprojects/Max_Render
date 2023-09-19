@@ -1,5 +1,8 @@
 function UnLike_Like(id) {
-  fetch("like/" + id + "/", {
+  var base_url = window.location.origin;
+  var host = window.location.host;
+  full_URL = base_url + "/like/" + id + "/";
+  fetch(full_URL, {
     method: "POST",
     post_id: id,
   })

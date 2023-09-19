@@ -12,19 +12,22 @@
 
 ```
 function UnLike_Like(id) {
-fetch("like/" + id + "/", {
+  var base_url = window.location.origin;
+  var host = window.location.host;
+  full_URL = base_url + "/like/" + id + "/";
+  fetch(full_URL, {
     method: "POST",
     post_id: id,
-})
+  })
     .then((response) => response.json())
     .then((Like_or_Notlike) => {
-    x = document.querySelector(".lc-" + id).innerHTML;
-    if (Like_or_Notlike == "Liked") {
+      x = document.querySelector(".lc-" + id).innerHTML;
+      if (Like_or_Notlike == "Liked") {
         y = parseInt(x) + 1;
-    } else {
+      } else {
         y = parseInt(x) - 1;
-    }
-    document.querySelector(".lc-" + id).innerHTML = y;
+      }
+      document.querySelector(".lc-" + id).innerHTML = y;
     });
 }
 
@@ -33,7 +36,7 @@ fetch("like/" + id + "/", {
 > ### Code Analysis
 >
 > 1.  Sends a POST request BackEnd that triggers like and unlike and realtime update the number of likes
-> 2.  **Located in [base.html](blogapp/templates/blogapp/base.html) `Click Red Heart to like the post`**
+> 2.  **`Click Red Heart to like the post`**
 
 ## 3. Views.py
 

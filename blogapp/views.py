@@ -14,7 +14,6 @@ from rest_framework.views import APIView
 
 def register(request):
     registered = False
-
     if request.method == 'POST':
         user_form = UserForm(data=request.POST)
         profile_form = UserProfileForm(request.POST, request.FILES)
@@ -122,10 +121,13 @@ def main_user_home(request):
 
 
 class UserHome(APIView):
+    print('This\n')
     renderer_classes = [TemplateHTMLRenderer]
     template_name = "blogapp/user.html"
-
+    print('This2\n')
     def get(self, request, username):
+        
+
         if Follower.objects.filter(user=username, follower=request.user):
             following=True
         else:
@@ -137,13 +139,16 @@ class UserHome(APIView):
             img_url = user.data['profile']['profileImage']
         else:
             img_url = None
-
+        
         follower_count = Follower.objects.filter(user=username).count()
         following_count = Follower.objects.filter(follower=username).count()
-
+        print('This34\n')
+        
         return Response({"subuser":queryset, "user_profile": user.data['profile'], "img_url": img_url, "posts": user.data['posts'], "following": following, "follower_count": follower_count, "following_count": following_count})
 
     def post(self, request, username):
+        print('This4\n')
+
         queryset = User.objects.get(username=username)
         user = UserSerializer(queryset)
         if queryset.profile.profileImage:
@@ -236,6 +241,7 @@ class PostView(APIView):
 
 
 def chat_room(request, room_name):
+    
     user_profile = AppUser.objects.get(user=request.user)
     if user_profile.profileImage:
         image_url = user_profile.profileImage.url
@@ -247,7 +253,7 @@ def chat_room(request, room_name):
         following_list.append(following)
     username = str(request.user)
     return render(request, "blogapp/inbox.html", {'room_name': room_name, "username": username, 'user_profile': user_profile, 'img_url': image_url, 'following_list': following_list})
-#
+
 
 ####################
 from django.views.decorators.csrf import csrf_exempt
@@ -268,5 +274,12 @@ def like(request, post_id):
             return JsonResponse('Liked', safe=False)
 
         
-   
 ##
+# @login_required
+# def message(request, receiver):
+#     if request.method == 'POST':
+#         sender = AppUser.objects.get(user=request.user)
+#         receiver = AppUser.objects.get(user=receiver)
+
+# user = request.user
+# user_profile = AppUser.objects.get(user=user)

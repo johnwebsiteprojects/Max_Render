@@ -36,6 +36,8 @@ ALLOWED_HOSTS = [
 INSTALLED_APPS = [
     'rest_framework',
     'channels',
+    'daphne',
+    'chat',
     'blogapp.apps.SnsappConfig',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -75,7 +77,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'blog.wsgi.application'
 ASGI_APPLICATION = 'blog.routing.application'
-
+# ASGI_APPLICATION = "blog.asgi.application"
 
 # rest framework settings
 REST_FRAMEWORK = {
